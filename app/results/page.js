@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 
-const Map = dynamic(() => import("/components/Map"), { ssr: false });
+const Map = dynamic(() => import("/components/Map.js"), { ssr: false });
 
 
 export default function ResultsPage() {
