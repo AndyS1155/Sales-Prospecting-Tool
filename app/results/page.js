@@ -1,13 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 
-const Map = dynamic(() => import("/components/Map.js"), { ssr: false });
+const Map = dynamic(() => import("../../components/Map"), { ssr: false });
 
-
-export default function ResultsPage() {
+function ResultsPageInner() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const query = searchParams.get("query") || "";
@@ -199,5 +198,13 @@ export default function ResultsPage() {
         </>
       )}
     </div>
+  );
+}
+
+export default function ResultsPage() {
+  return (
+    <Suspense fallback={<div className="text-white">Loading results...</div>}>
+      <ResultsPageInner />
+    </Suspense>
   );
 }
